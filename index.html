@@ -27,41 +27,67 @@
     :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; --white: #ffffff; --green: #16a34a; --red: #dc2626; --gray: #64748b; --blue: #2563eb; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
     
-    /* Cabeçalho Unificado, Fluido e Sem Cortes */
+    /* Cabeçalho 100% Responsivo: Nunca corta o banner nas laterais */
     .hero-header {
       background-color: #0f172a;
       background-image: 
         linear-gradient(to bottom, 
           rgba(15, 23, 42, 0) 0%, 
-          rgba(15, 23, 42, 0) 50%, 
-          rgba(15, 23, 42, 0.65) 75%, 
+          rgba(15, 23, 42, 0) 60%, 
+          rgba(15, 23, 42, 0.75) 85%, 
           #0f172a 100%),
         url('./banner.png');
       background-position: center top;
-      background-size: 100% auto;
+      background-size: min(100vw, 1600px) auto;
       background-repeat: no-repeat;
       text-align: center;
       position: relative;
       width: 100%;
       box-sizing: border-box;
       border-bottom: 4px solid var(--gold);
-      /* Espaçamento superior dinâmico que respeita a arte e posiciona a data abaixo de "NOITE DE GALA" */
-      padding-top: clamp(250px, 33vw, 640px);
-      padding-bottom: 30px;
-      padding-left: 20px;
-      padding-right: 20px;
+      /* O padding superior calcula exatamente a altura da arte em qualquer ecrã */
+      padding-top: calc(min(100vw, 1600px) * 0.425 + 15px);
+      padding-bottom: 28px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
 
+    /* Ajustes Específicos para Telemóveis */
     @media (max-width: 768px) {
       .hero-header {
-        background-size: cover;
-        background-position: center top;
-        padding-top: 260px;
-        padding-bottom: 25px;
+        background-size: 100% auto !important;
+        background-position: center top !important;
+        padding-top: calc(100vw * 0.425 + 12px) !important;
+        padding-bottom: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .btn-lider {
+        top: 10px !important;
+        right: 10px !important;
+        padding: 5px 12px !important;
+        font-size: 11px !important;
+      }
+      .hero-date-display { 
+        font-size: 11px !important; 
+        padding: 5px 14px !important; 
+        letter-spacing: 1px !important;
+        margin-bottom: 8px !important;
+      }
+      .hero-verse-box {
+        padding-top: 8px !important;
+      }
+      .hero-verse-box p { 
+        font-size: 12px !important; 
+        line-height: 1.4 !important;
+      }
+      .hero-verse-box span { 
+        font-size: 10px !important; 
+        letter-spacing: 1px !important;
       }
     }
 
-    /* Conteúdo Integrado na Base do Cabeçalho */
+    /* Conteúdo na Base do Cabeçalho */
     .hero-footer-content {
       max-width: 720px;
       margin: 0 auto;
@@ -69,15 +95,15 @@
       z-index: 2;
     }
 
-    /* Medalha de Gala: Data do Evento */
+    /* Medalha com a Data do Evento */
     .hero-date-display { 
       display: inline-block;
       color: #f8fafc; 
       font-size: 14px; 
       font-weight: 700; 
-      letter-spacing: 2px; 
+      letter-spacing: 1.5px; 
       text-transform: uppercase; 
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(212, 175, 55, 0.45);
@@ -87,7 +113,7 @@
       margin-bottom: 12px;
     }
 
-    /* Versículo Bíblico Integrado */
+    /* Versículo Bíblico */
     .hero-verse-box { 
       margin: 0 auto; 
       color: #e2e8f0; 
@@ -118,7 +144,7 @@
       position: absolute; 
       top: 15px; 
       right: 15px; 
-      background: rgba(15, 23, 42, 0.65); 
+      background: rgba(15, 23, 42, 0.7); 
       backdrop-filter: blur(8px); 
       -webkit-backdrop-filter: blur(8px);
       color: #fff; 
@@ -298,7 +324,7 @@
   <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
   <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Arca de Casais 2027 — IBAC Noite de Gala</h1>
 
-  <!-- Conteúdo de Apoio Perfeitamente Posicionado na Base -->
+  <!-- Conteúdo Posicionado Abaixo de "NOITE DE GALA" -->
   <div class="hero-footer-content">
     <div id="hero-data-evento" class="hero-date-display"></div>
     <div class="hero-verse-box">
@@ -917,9 +943,7 @@
   function formatarTelefoneVisual(tel) {
     const limpo = (tel || '').replace(/\D/g, '');
     if (limpo.length === 11) {
-      return `(${limpo.slice(0,2)}) ${limpo.slice(2,7)}-${limpo.slice(7)}`;
-    } else if (limpo.length === 10) {
-      return `(${limpo.slice(0,2)}) ${limpo.slice(2,6)}-${limpo.slice(6)}`;
+      return `(${limpo.slice(0,2)})${limpo.slice(2,7)}-${limpo.slice(7)}`; } else if (limpo.length === 10) { return `(${limpo.slice(0,2)}) ${limpo.slice(2,6)}-${limpo.slice(6)}`;
     }
     return limpo;
   }
@@ -928,60 +952,10 @@
     if (!dataStr) return "";
     const partes = dataStr.split('-');
     if (partes.length === 3) {
-      return `${partes[2]}/${partes[1]}/${partes[0]}`;
-    }
-    return dataStr;
-  }
-
-  function formatarDataHoraEvento(isoStr) {
-    if (!isoStr) return "";
-    try {
-      const d = new Date(isoStr);
-      if (isNaN(d.getTime())) return "";
-      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) +
-             ' • ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + 'h';
-    } catch(e) { return ""; }
-  }
-
-  function obterPrimeiroEUltimoNome(nomeStr) {
-    if (!nomeStr) return "";
-    const partes = nomeStr.trim().split(/\s+/).filter(Boolean);
-    if (partes.length <= 1) return partes[0] || "";
-    return `${partes[0]} ${partes[partes.length - 1]}`;
-  }
-
-  function gerarSugestaoCasal(nome1, nome2) {
-    const s1 = obterPrimeiroEUltimoNome(nome1);
-    const s2 = obterPrimeiroEUltimoNome(nome2);
-    if (s1 && s2) return `${s1} E ${s2}`.toUpperCase();
-    if (s1) return s1.toUpperCase();
-    return (s2 || "").toUpperCase();
-  }
-
-  window.atualizarSugestaoNome = function(prefixo) {
-    const n1 = document.getElementById(`${prefixo}-nome1`).value;
-    const n2 = document.getElementById(`${prefixo}-nome2`).value;
-    const box = document.getElementById(`${prefixo}-box-sugestao`);
-    const txtSugestao = document.getElementById(`${prefixo}-txt-sugestao`);
-
-    if (n1.trim().length >= 2 || n2.trim().length >= 2) {
-      const sugestao = gerarSugestaoCasal(n1, n2);
-      txtSugestao.innerText = sugestao;
-      box.style.display = "block";
-    } else {
-      box.style.display = "none";
-    }
-  };
-
-  window.alternarCampoCustomNome = function(prefixo) {
-    const concorda = document.getElementById(`${prefixo}-check-concorda`).checked;
-    const customContainer = document.getElementById(`${prefixo}-custom-container`);
-    customContainer.style.display = concorda ? "none" : "block";
-  };
-
-  async function inicializarDados() {
-    try {
-      const res = await fetch(`${DB_URL}/dados.json`);
+      return `${partes[2]}/${partes[1]}/${partes[0]}`; } return dataStr; }  function formatarDataHoraEvento(isoStr) { if (!isoStr) return ""; try { const d = new Date(isoStr); if (isNaN(d.getTime())) return ""; return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) + ' • ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + 'h'; } catch(e) { return ""; } }  function obterPrimeiroEUltimoNome(nomeStr) { if (!nomeStr) return ""; const partes = nomeStr.trim().split(/\s+/).filter(Boolean); if (partes.length <= 1) return partes[0] \vert{}\vert{} ""; return `${partes[0]} ${partes[partes.length - 1]}`; }  function gerarSugestaoCasal(nome1, nome2) { const s1 = obterPrimeiroEUltimoNome(nome1); const s2 = obterPrimeiroEUltimoNome(nome2); if (s1 && s2) return `${s1} E ${s2}`.toUpperCase(); if (s1) return s1.toUpperCase(); return (s2 \vert{}\vert{} "").toUpperCase(); }  window.atualizarSugestaoNome = function(prefixo) { const n1 = document.getElementById(`${prefixo}-nome1`).value;
+    const n2 = document.getElementById(`${prefixo}-nome2`).value; const box = document.getElementById(`${prefixo}-box-sugestao`);
+    const txtSugestao = document.getElementById(`${prefixo}-txt-sugestao`);  if (n1.trim().length >= 2 \vert{}\vert{} n2.trim().length >= 2) { const sugestao = gerarSugestaoCasal(n1, n2); txtSugestao.innerText = sugestao; box.style.display = "block"; } else { box.style.display = "none"; } };  window.alternarCampoCustomNome = function(prefixo) { const concorda = document.getElementById(`${prefixo}-check-concorda`).checked;
+    const customContainer = document.getElementById(`${prefixo}-custom-container`); customContainer.style.display = concorda ? "none" : "block"; };  async function inicializarDados() { try { const res = await fetch(`${DB_URL}/dados.json`);
       const dados = await res.json();
 
       if (dados && dados.casais && Array.isArray(dados.casais) && dados.casais.length > 0) {
@@ -1047,27 +1021,7 @@
     atualizarDashboard();
     try {
       emProcessamentoNuvem = true;
-      await fetch(`${DB_URL}/dados.json`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ casais, lideres, configuracoes })
-      });
-    } catch (erro) {
-      console.error("Erro ao salvar no Firebase:", erro);
-    } finally {
-      emProcessamentoNuvem = false;
-    }
-  }
-
-  async function sincronizarEmSegundoPlano() {
-    if (emProcessamentoNuvem) return;
-    
-    const modaisAbertos = document.querySelectorAll('.modal.active');
-    const focoEmCampo = document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'SELECT');
-    if (modaisAbertos.length > 0 || focoEmCampo) return;
-
-    try {
-      const res = await fetch(`${DB_URL}/dados.json`);
+      await fetch(`${DB_URL}/dados.json`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ casais, lideres, configuracoes }) }); } catch (erro) { console.error("Erro ao salvar no Firebase:", erro); } finally { emProcessamentoNuvem = false; } }  async function sincronizarEmSegundoPlano() { if (emProcessamentoNuvem) return;  const modaisAbertos = document.querySelectorAll('.modal.active'); const focoEmCampo = document.activeElement && (document.activeElement.tagName === 'INPUT' \vert{}\vert{} document.activeElement.tagName === 'TEXTAREA' \vert{}\vert{} document.activeElement.tagName === 'SELECT'); if (modaisAbertos.length > 0 \vert{}\vert{} focoEmCampo) return;  try { const res = await fetch(`${DB_URL}/dados.json`);
       const dados = await res.json();
       if (!dados || !dados.casais) return;
 
@@ -1107,17 +1061,9 @@
 
     const dataFmt = formatarDataHoraEvento(configuracoes.dataEvento);
     document.getElementById('hero-data-evento').innerText = dataFmt;
-    document.getElementById('hero-verse-txt').innerText = `"${configuracoes.versiculoTexto || 'Assim, eles já não são dois, mas sim uma só carne. Portanto, ninguém separe o que Deus uniu.'}"`;
-    document.getElementById('hero-verse-ref').innerText = configuracoes.versiculoReferencia || 'Mateus 19:6';
-
-    const pixChave = configuracoes.chavePix || "Chave não cadastrada ainda";
-    const titular = configuracoes.titularPix ? `Titular: ${configuracoes.titularPix}` : "";
-    const infoBanco = configuracoes.infoBancaria ? `Dados Bancários: ${configuracoes.infoBancaria}` : "";
-
-    ['reg', 'valida', 'auth'].forEach(pref => {
-      const elChave = document.getElementById(`${pref}-pix-chave`);
-      const elTitular = document.getElementById(`${pref}-pix-titular`);
-      const elBanco = document.getElementById(`${pref}-pix-banco`);
+    document.getElementById('hero-verse-txt').innerText = `"${configuracoes.versiculoTexto \vert{}\vert{} 'Assim, eles já não são dois, mas sim uma só carne. Portanto, ninguém separe o que Deus uniu.'}"`; document.getElementById('hero-verse-ref').innerText = configuracoes.versiculoReferencia \vert{}\vert{} 'Mateus 19:6';  const pixChave = configuracoes.chavePix \vert{}\vert{} "Chave não cadastrada ainda"; const titular = configuracoes.titularPix ? `Titular: ${configuracoes.titularPix}` : "";
+    const infoBanco = configuracoes.infoBancaria ? `Dados Bancários: ${configuracoes.infoBancaria}` : "";  ['reg', 'valida', 'auth'].forEach(pref => { const elChave = document.getElementById(`${pref}-pix-chave`);
+      const elTitular = document.getElementById(`${pref}-pix-titular`); const elBanco = document.getElementById(`${pref}-pix-banco`);
 
       if (elChave) elChave.innerText = pixChave;
       if (elTitular) elTitular.innerText = titular;
@@ -1145,8 +1091,7 @@
   };
 
   window.alternarBoxPix = function(prefixo) {
-    const valor = document.getElementById(`${prefixo}-forma-pagamento`).value;
-    const box = document.getElementById(`${prefixo}-box-pix`);
+    const valor = document.getElementById(`${prefixo}-forma-pagamento`).value; const box = document.getElementById(`${prefixo}-box-pix`);
     if (box) box.style.display = (valor === 'pix') ? 'block' : 'none';
   };
 
@@ -1212,7 +1157,7 @@
       if (isLider || isAnalista) {
         const tel1Visual = c.tel1 ? formatarTelefoneVisual(c.tel1) : 'Sem Tel 1';
         const tel2Visual = c.tel2 ? formatarTelefoneVisual(c.tel2) : '';
-        html += `<span class="casal-tel">📱 ${tel1Visual} ${tel2Visual ? '| ' + tel2Visual : ''}</span>`;
+        html += `<span class="casal-tel">📱 ${tel1Visual}${tel2Visual ? '| ' + tel2Visual : ''}</span>`;
         
         let badgeForma = `<span class="badge-metodo badge-indefinido">Forma: Ainda não sabe</span>`;
         if (c.formaPagamento === 'pix') badgeForma = `<span class="badge-metodo badge-pix">💠 Pix</span>`;
@@ -1226,7 +1171,7 @@
           btnCodigoOculto = `<button class="btn-recibo" style="background:#475569;" onclick="revelarCodigoAcesso(${c.id}, this)">🔑 Ver Código</button>`;
         }
 
-        html += `<div class="casal-meta">${badgeForma} ${badgePrev} ${btnCodigoOculto}`;
+        html += `<div class="casal-meta">${badgeForma} ${badgePrev}${btnCodigoOculto}`;
         if (c.comprovante) {
           html += `<button class="btn-recibo" onclick="abrirModalComprovante(${c.id})">📎 Ver Comprovante</button>`;
         }
@@ -1242,7 +1187,7 @@
       }
 
       if (isLider || isAnalista) {
-        html += `<button class="btn-pagamento ${c.pago ? 'pago-sim' : 'pago-nao'}" onclick="alternarPagamento(${c.id})"><span>$</span> ${c.pago ? 'Pago' : 'Pendente'}</button>`;
+        html += `<button class="btn-pagamento ${c.pago ? 'pago-sim' : 'pago-nao'}" onclick="alternarPagamento(${c.id})"><span>$</span>${c.pago ? 'Pago' : 'Pendente'}</button>`;
         html += `<button class="${classZap}" title="Enviar WhatsApp" onclick="enviarWhatsApp(${c.id})">${iconeWhatsApp}</button>`;
         html += `<button class="btn-icon btn-edit" title="Editar Casal" onclick="abrirEdicaoLider(${c.id}, '${c.nome}')">✏️</button>`;
         if (isAlfa || isAnalista) html += `<button class="btn-icon btn-trash" title="Excluir" onclick="excluirCasal(${c.id})">🗑️</button>`;
@@ -1258,14 +1203,7 @@
   window.revelarCodigoAcesso = function(id, btnElement) {
     const c = casais.find(x => x.id === id);
     if (!c) return;
-    btnElement.outerHTML = `<span class="badge-codigo" style="font-size:11px; font-weight:bold; background:#fef3c7; color:#92400e; border:1px solid #fde68a; padding:4px 8px;">🔑 Código: ${c.codigoAcesso || 'Sem código'}</span>`;
-  };
-
-  window.abrirModalComprovante = function(id) {
-    const c = casais.find(x => x.id === id);
-    if (!c || !c.comprovante) return alert("Comprovante não localizado.");
-
-    document.getElementById("comprovante-casal-nome").innerText = `Casal: ${c.nome}`;
+    btnElement.outerHTML = `<span class="badge-codigo" style="font-size:11px; font-weight:bold; background:#fef3c7; color:#92400e; border:1px solid #fde68a; padding:4px 8px;">🔑 Código: ${c.codigoAcesso \vert{}\vert{} 'Sem código'}</span>`; };  window.abrirModalComprovante = function(id) { const c = casais.find(x => x.id === id); if (!c \vert{}\vert{} !c.comprovante) return alert("Comprovante não localizado.");  document.getElementById("comprovante-casal-nome").innerText = `Casal: ${c.nome}`;
     const container = document.getElementById("comprovante-container");
     container.innerHTML = "";
 
@@ -1530,136 +1468,7 @@
     }
 
     document.getElementById("auth-casal-id").value = casal.id;
-    document.getElementById("auth-casal-nome").innerText = `Casal: ${casal.nome}`;
-    document.getElementById("auth-data-previsao").value = casal.previsaoPagamento || "";
-    document.getElementById("auth-forma-pagamento").value = casal.formaPagamento || "indefinido";
-    alternarBoxPix('auth');
-
-    document.getElementById("step-auth-membro").style.display = "none";
-    document.getElementById("step-update-membro").style.display = "block";
-  };
-
-  window.salvarAtualizacaoMembroAuto = async function() {
-    const id = parseInt(document.getElementById("auth-casal-id").value);
-    const casal = casais.find(c => c.id === id);
-    if (!casal) return;
-
-    const dataPrev = document.getElementById("auth-data-previsao").value;
-    const forma = document.getElementById("auth-forma-pagamento").value;
-    const fileInput = document.getElementById("auth-comprovante-file");
-
-    casal.previsaoPagamento = dataPrev;
-    casal.formaPagamento = forma;
-
-    if (fileInput.files.length > 0) {
-      casal.comprovante = await lerArquivoBase64(fileInput.files[0]);
-      casal.pago = true;
-    }
-
-    await salvarNoBanco();
-    fecharModal("modal-auto-atualizacao");
-    alert("Dados de pagamento atualizados com sucesso!");
-  };
-
-  window.adicionarCasalAdmin = async function() {
-    const n = document.getElementById("add-nome").value.trim().toUpperCase();
-    const t1 = document.getElementById("add-tel1").value;
-    const t2 = document.getElementById("add-tel2").value;
-
-    if (!n) return alert("Digite o nome completo do casal!");
-    if (t1 && !validarTelefone(t1, false)) return alert("Telefone 1 inválido! Digite com DDD (10 ou 11 dígitos).");
-    if (t2 && !validarTelefone(t2, false)) return alert("O segundo telefone é inválido! Digite com DDD (10 ou 11 dígitos) ou deixe o campo em branco.");
-
-    const novoId = casais.length ? Math.max(...casais.map(c => c.id)) + 1 : 1;
-    casais.push({
-      id: novoId,
-      nome: n,
-      confirmado: false,
-      pago: false,
-      tel1: t1 ? t1.replace(/\D/g, '') : "",
-      tel2: t2 ? t2.replace(/\D/g, '') : "",
-      formaPagamento: "indefinido",
-      previsaoPagamento: "",
-      comprovante: "",
-      codigoAcesso: gerarCodigoAcessoUnico()
-    });
-    await salvarNoBanco();
-    document.getElementById("add-nome").value = "";
-    document.getElementById("add-tel1").value = "";
-    document.getElementById("add-tel2").value = "";
-    alert("Casal adicionado à nuvem!");
-  };
-
-  window.abrirEdicaoLider = function(id, nome) {
-    const c = casais.find(x => x.id === id);
-    document.getElementById("edit-id-casal").value = id;
-    const inputNome = document.getElementById("edit-nomes-casal");
-    inputNome.value = c.nome;
-    inputNome.disabled = !(isAlfa || isAnalista);
-    document.getElementById("edit-tel1").value = c.tel1 || "";
-    document.getElementById("edit-tel2").value = c.tel2 || "";
-    document.getElementById("edit-data-previsao").value = c.previsaoPagamento || "";
-    document.getElementById("edit-forma-pagamento").value = c.formaPagamento || "indefinido";
-    document.getElementById("edit-codigo-acesso").value = c.codigoAcesso || "Não gerado";
-    document.getElementById("modal-editar-lider").classList.add("active");
-  };
-
-  window.salvarEdicaoLider = async function() {
-    const id = parseInt(document.getElementById("edit-id-casal").value);
-    const t1 = document.getElementById("edit-tel1").value;
-    const t2 = document.getElementById("edit-tel2").value;
-    const dataPrev = document.getElementById("edit-data-previsao").value;
-
-    if (t1 && !validarTelefone(t1, false)) return alert("Telefone 1 inválido! Digite com DDD (10 ou 11 dígitos).");
-    if (t2 && !validarTelefone(t2, false)) return alert("O segundo telefone é inválido! Digite com DDD (10 ou 11 dígitos) ou deixe o campo em branco.");
-
-    const casal = casais.find(c => c.id === id);
-    if (isAlfa || isAnalista) casal.nome = document.getElementById("edit-nomes-casal").value.trim().toUpperCase();
-    casal.tel1 = t1 ? t1.replace(/\D/g, '') : "";
-    casal.tel2 = t2 ? t2.replace(/\D/g, '') : "";
-    casal.previsaoPagamento = dataPrev;
-    casal.formaPagamento = document.getElementById("edit-forma-pagamento").value;
-
-    await salvarNoBanco();
-    fecharModal('modal-editar-lider');
-  };
-
-  window.excluirCasal = async function(id) {
-    if (!isAlfa && !isAnalista) return alert("Apenas Analista ou Líder Alfa podem excluir!");
-    if (confirm("Remover este casal da base de dados?")) {
-      casais = casais.filter(c => c.id !== id);
-      await salvarNoBanco();
-    }
-  };
-
-  window.alternarPagamento = async function(id) {
-    const c = casais.find(x => x.id === id);
-    c.pago = !c.pago;
-    await salvarNoBanco();
-  };
-
-  window.toggleConfirmacaoLider = async function(id) {
-    const c = casais.find(x => x.id === id);
-    c.confirmado = !c.confirmado;
-    await salvarNoBanco();
-  };
-
-  window.abrirLogin = function() {
-    if (isLider || isAnalista) {
-      isLider = false;
-      isAlfa = false;
-      isAnalista = false;
-      document.getElementById("dashboard-panel").classList.remove("active");
-      document.getElementById("filtros-lideranca").style.display = "none";
-      document.getElementById("info-evento-area").style.display = "block";
-      document.querySelector('.btn-lider').innerHTML = "🔒 Líder";
-      renderizarLista();
-      return;
-    }
-    const sel = document.getElementById("select-lider");
-    sel.innerHTML = '<option value="">Selecione seu perfil...</option>';
-    lideres.forEach(l => {
-      const cargoDesc = l.cargo ? ` (${l.cargo})` : (l.alfa ? ' (Alfa)' : '');
+    document.getElementById("auth-casal-nome").innerText = `Casal: ${casal.nome}`; document.getElementById("auth-data-previsao").value = casal.previsaoPagamento \vert{}\vert{} ""; document.getElementById("auth-forma-pagamento").value = casal.formaPagamento \vert{}\vert{} "indefinido"; alternarBoxPix('auth');  document.getElementById("step-auth-membro").style.display = "none"; document.getElementById("step-update-membro").style.display = "block"; };  window.salvarAtualizacaoMembroAuto = async function() { const id = parseInt(document.getElementById("auth-casal-id").value); const casal = casais.find(c => c.id === id); if (!casal) return;  const dataPrev = document.getElementById("auth-data-previsao").value; const forma = document.getElementById("auth-forma-pagamento").value; const fileInput = document.getElementById("auth-comprovante-file");  casal.previsaoPagamento = dataPrev; casal.formaPagamento = forma;  if (fileInput.files.length > 0) { casal.comprovante = await lerArquivoBase64(fileInput.files[0]); casal.pago = true; }  await salvarNoBanco(); fecharModal("modal-auto-atualizacao"); alert("Dados de pagamento atualizados com sucesso!"); };  window.adicionarCasalAdmin = async function() { const n = document.getElementById("add-nome").value.trim().toUpperCase(); const t1 = document.getElementById("add-tel1").value; const t2 = document.getElementById("add-tel2").value;  if (!n) return alert("Digite o nome completo do casal!"); if (t1 && !validarTelefone(t1, false)) return alert("Telefone 1 inválido! Digite com DDD (10 ou 11 dígitos)."); if (t2 && !validarTelefone(t2, false)) return alert("O segundo telefone é inválido! Digite com DDD (10 ou 11 dígitos) ou deixe o campo em branco.");  const novoId = casais.length ? Math.max(...casais.map(c => c.id)) + 1 : 1; casais.push({ id: novoId, nome: n, confirmado: false, pago: false, tel1: t1 ? t1.replace(/\D/g, '') : "", tel2: t2 ? t2.replace(/\D/g, '') : "", formaPagamento: "indefinido", previsaoPagamento: "", comprovante: "", codigoAcesso: gerarCodigoAcessoUnico() }); await salvarNoBanco(); document.getElementById("add-nome").value = ""; document.getElementById("add-tel1").value = ""; document.getElementById("add-tel2").value = ""; alert("Casal adicionado à nuvem!"); };  window.abrirEdicaoLider = function(id, nome) { const c = casais.find(x => x.id === id); document.getElementById("edit-id-casal").value = id; const inputNome = document.getElementById("edit-nomes-casal"); inputNome.value = c.nome; inputNome.disabled = !(isAlfa \vert{}\vert{} isAnalista); document.getElementById("edit-tel1").value = c.tel1 \vert{}\vert{} ""; document.getElementById("edit-tel2").value = c.tel2 \vert{}\vert{} ""; document.getElementById("edit-data-previsao").value = c.previsaoPagamento \vert{}\vert{} ""; document.getElementById("edit-forma-pagamento").value = c.formaPagamento \vert{}\vert{} "indefinido"; document.getElementById("edit-codigo-acesso").value = c.codigoAcesso \vert{}\vert{} "Não gerado"; document.getElementById("modal-editar-lider").classList.add("active"); };  window.salvarEdicaoLider = async function() { const id = parseInt(document.getElementById("edit-id-casal").value); const t1 = document.getElementById("edit-tel1").value; const t2 = document.getElementById("edit-tel2").value; const dataPrev = document.getElementById("edit-data-previsao").value;  if (t1 && !validarTelefone(t1, false)) return alert("Telefone 1 inválido! Digite com DDD (10 ou 11 dígitos)."); if (t2 && !validarTelefone(t2, false)) return alert("O segundo telefone é inválido! Digite com DDD (10 ou 11 dígitos) ou deixe o campo em branco.");  const casal = casais.find(c => c.id === id); if (isAlfa \vert{}\vert{} isAnalista) casal.nome = document.getElementById("edit-nomes-casal").value.trim().toUpperCase(); casal.tel1 = t1 ? t1.replace(/\D/g, '') : ""; casal.tel2 = t2 ? t2.replace(/\D/g, '') : ""; casal.previsaoPagamento = dataPrev; casal.formaPagamento = document.getElementById("edit-forma-pagamento").value;  await salvarNoBanco(); fecharModal('modal-editar-lider'); };  window.excluirCasal = async function(id) { if (!isAlfa && !isAnalista) return alert("Apenas Analista ou Líder Alfa podem excluir!"); if (confirm("Remover este casal da base de dados?")) { casais = casais.filter(c => c.id !== id); await salvarNoBanco(); } };  window.alternarPagamento = async function(id) { const c = casais.find(x => x.id === id); c.pago = !c.pago; await salvarNoBanco(); };  window.toggleConfirmacaoLider = async function(id) { const c = casais.find(x => x.id === id); c.confirmado = !c.confirmado; await salvarNoBanco(); };  window.abrirLogin = function() { if (isLider \vert{}\vert{} isAnalista) { isLider = false; isAlfa = false; isAnalista = false; document.getElementById("dashboard-panel").classList.remove("active"); document.getElementById("filtros-lideranca").style.display = "none"; document.getElementById("info-evento-area").style.display = "block"; document.querySelector('.btn-lider').innerHTML = "🔒 Líder"; renderizarLista(); return; } const sel = document.getElementById("select-lider"); sel.innerHTML = '<option value="">Selecione seu perfil...</option>'; lideres.forEach(l => { const cargoDesc = l.cargo ? ` (${l.cargo})` : (l.alfa ? ' (Alfa)' : '');
       const statusTag = l.bloqueado ? ' [🚫 BLOQUEADO]' : '';
       sel.innerHTML += `<option value="${l.nome}">${l.nome}${cargoDesc}${statusTag}</option>`;
     });
@@ -1891,7 +1700,7 @@
     fecharModal("modal-redefinir-senha");
     renderizarTabelaLideres();
     atualizarAlertaBloqueio();
-    alert(`A senha de ${l.nome} foi redefinida com sucesso e o acesso foi DESBLOQUEADO!\n\nNova Senha: ${novaSenha}`);
+    alert(`A senha de ${l.nome} foi redefinida com sucesso e o acesso foi DESBLOQUEADO!\n\nNova Senha:${novaSenha}`);
   };
 
   window.definirCargoLider = async function(n, novoCargo) {
@@ -1902,7 +1711,7 @@
       return alert("O perfil principal de Analista (Joabe) não pode ter o cargo alterado.");
     }
 
-    if (!confirm(`Deseja alterar a função de ${l.nome} para ${novoCargo}?`)) return;
+    if (!confirm(`Deseja alterar a função de ${l.nome} para${novoCargo}?`)) return;
 
     l.cargo = novoCargo;
     l.alfa = (novoCargo === "Analista" || novoCargo === "Líder Alfa");
@@ -1928,7 +1737,7 @@
       }
     }
 
-    alert(`Sucesso! A função de ${l.nome} foi atualizada para ${novoCargo}.`);
+    alert(`Sucesso! A função de ${l.nome} foi atualizada para${novoCargo}.`);
   };
 
   window.cadastrarLider = async function() {
@@ -1994,23 +1803,11 @@
       casaisFiltrados.forEach(c => {
         linhas.push([
           c.id,
-          `"${c.nome.replace(/"/g, '""')}"`,
-          c.confirmado ? "Confirmado" : "Pendente",
-          `"${c.tel1 ? formatarTelefoneVisual(c.tel1) : ''}"`,
-          `"${c.tel2 ? formatarTelefoneVisual(c.tel2) : ''}"`
-        ]);
-      });
-    } else if (tipo === 'financeiro') {
-      nomeArquivo = "Relatorio_Arrecadacao_Arca2027.csv";
-      linhas.push(["ID", "Casal", "Status Pagamento", "Valor Cota (R$)", "Forma Pagamento", "Previsao Pagamento", "Comprovante Anexado"]);
-      casaisFiltrados.forEach(c => {
-        linhas.push([
-          c.id,
-          `"${c.nome.replace(/"/g, '""')}"`,
+          `"${c.nome.replace(/"/g, '""')}"`, c.confirmado ? "Confirmado" : "Pendente", `"${c.tel1 ? formatarTelefoneVisual(c.tel1) : ''}"`,
+          `"${c.tel2 ? formatarTelefoneVisual(c.tel2) : ''}"` ]); }); } else if (tipo === 'financeiro') { nomeArquivo = "Relatorio_Arrecadacao_Arca2027.csv"; linhas.push(["ID", "Casal", "Status Pagamento", "Valor Cota (R$)", "Forma Pagamento", "Previsao Pagamento", "Comprovante Anexado"]); casaisFiltrados.forEach(c => { linhas.push([ c.id, `"${c.nome.replace(/"/g, '""')}"`,
           c.pago ? "Pago" : "Pendente",
           c.pago ? configuracoes.valorCota.toFixed(2).replace('.', ',') : "0,00",
-          `"${c.formaPagamento === 'indefinido' ? 'Ainda nao sabe' : (c.formaPagamento || 'Ainda nao sabe')}"`,
-          `"${formatarDataBR(c.previsaoPagamento) || 'Nao informada'}"`,
+          `"${c.formaPagamento === 'indefinido' ? 'Ainda nao sabe' : (c.formaPagamento \vert{}\vert{} 'Ainda nao sabe')}"`, `"${formatarDataBR(c.previsaoPagamento) || 'Nao informada'}"`,
           c.comprovante ? "Sim" : "Nao"
         ]);
       });
@@ -2073,132 +1870,4 @@
       <div style="border-bottom: 2px solid #d4af37; padding-bottom: 12px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
         <div>
           <h2 style="margin:0; font-family:'Playfair Display', serif; color:#0f172a;">ARCA DE CASAIS 2027</h2>
-          <small style="color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Igreja Batista Apostólica da Celebração (IBAC)</small>
-        </div>
-        <div style="text-align:right;">
-          <h4 style="margin:0; color:#d4af37;">${titulo}</h4>
-          <small style="color:#64748b;">Emissão: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</small>
-        </div>
-      </div>
-
-      <div style="display:flex; gap:10px; margin-bottom:20px; background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0; font-size:12px;">
-        <div style="flex:1;"><strong>Total Listado:</strong> ${totalCasais}</div>
-        <div style="flex:1;"><strong>Confirmados:</strong> ${confirmados}</div>
-        <div style="flex:1;"><strong>Pagantes:</strong> ${pagos}</div>
-        <div style="flex:1; color:#16a34a;"><strong>Total Arrecadado:</strong> R$ ${arrecadado.toLocaleString('pt-BR', {minimumFractionDigits:2})}</div>
-      </div>
-
-      <table style="width:100%; border-collapse:collapse; font-size:11px;">
-        <thead>
-          <tr style="background:#0f172a; color:#ffffff;">
-            ${colunas.map(col => `<th style="padding:8px 6px; text-align:left; border:1px solid #0f172a;">${col}</th>`).join('')}
-          </tr>
-        </thead>
-        <tbody>
-          ${dadosLinhas.map((linha, idx) => `
-            <tr style="background:${idx % 2 === 0 ? '#ffffff' : '#f8fafc'};">
-              ${linha.map(val => `<td style="padding:6px; border:1px solid #e2e8f0;">${val}</td>`).join('')}
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-      <div style="margin-top:20px; font-size:10px; color:#94a3b8; text-align:center;">
-        Documento oficial emitido pela plataforma Arca de Casais 2027 — IBAC.
-      </div>
-    `;
-
-    containerPDF.innerHTML = tabelaHtml;
-    document.body.appendChild(containerPDF);
-
-    const opt = {
-      margin: 8,
-      filename: nomeArquivo,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(containerPDF).save().then(() => {
-      document.body.removeChild(containerPDF);
-    });
-  };
-
-  window.processarImportacaoCSV = function(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-      const text = e.target.result;
-      const lines = text.split('\n');
-      let adicionados = 0;
-      
-      lines.forEach((line, index) => {
-        if (index === 0 && (line.toLowerCase().includes('casal') || line.toLowerCase().includes('sep='))) return;
-        
-        const sep = line.includes(';') ? ';' : ',';
-        const cols = line.split(sep);
-        if (cols.length > 0 && cols[0].trim() !== '') {
-          let nomeRaw = cols.length > 1 && !isNaN(cols[0].trim()) ? cols[1] : cols[0];
-          let nome = nomeRaw.replace(/['"]/g, '').trim().toUpperCase();
-          if (nome && !casais.find(c => c.nome === nome)) {
-            const novoId = casais.length ? Math.max(...casais.map(c => c.id)) + 1 : 1;
-            let tel1 = cols.length > 3 ? cols[3].replace(/['"\D]/g, '') : "";
-            let tel2 = cols.length > 4 ? cols[4].replace(/['"\D]/g, '') : "";
-            casais.push({
-              id: novoId,
-              nome: nome,
-              confirmado: false,
-              pago: false,
-              tel1: tel1,
-              tel2: tel2,
-              formaPagamento: "indefinido",
-              previsaoPagamento: "",
-              comprovante: "",
-              codigoAcesso: gerarCodigoAcessoUnico()
-            });
-            adicionados++;
-          }
-        }
-      });
-      await salvarNoBanco();
-      renderizarLista();
-      alert(`Sucesso! ${adicionados} casais importados e sincronizados.`);
-      event.target.value = '';
-    };
-    reader.readAsText(file);
-  };
-
-  window.toggleSection = function(id) {
-    document.getElementById(id).classList.toggle('open');
-  };
-
-  function iniciarContagem() {
-    if (timerInterval) clearInterval(timerInterval);
-    const alvo = new Date(configuracoes.dataEvento).getTime();
-    if (!configuracoes.dataEvento || isNaN(alvo)) {
-      document.getElementById("cd-dias").innerText = "--";
-      document.getElementById("cd-horas").innerText = "--";
-      document.getElementById("cd-min").innerText = "--";
-      return;
-    }
-    timerInterval = setInterval(() => {
-      const dist = alvo - new Date().getTime();
-      if (dist < 0) {
-        clearInterval(timerInterval);
-        document.getElementById("countdown-timer").innerHTML = "<div style='color:var(--gold); font-size:20px; font-weight:bold;'>O Grande Dia Chegou! ✨</div>";
-        return;
-      }
-      document.getElementById("cd-dias").innerText = Math.floor(dist / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-      document.getElementById("cd-horas").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-      document.getElementById("cd-min").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-    }, 1000);
-  }
-
-  window.fecharModal = function(id) {
-    document.getElementById(id).classList.remove("active");
-  };
-
-  window.onload = inicializarDados;
-</script>
-</body>
-</html>
+          <small style="color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Igreja Batista Apostólica da Celebração (IBAC)</
