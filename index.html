@@ -7,15 +7,15 @@
 
   <!-- Metatags para Prévia Visual no WhatsApp e Redes Sociais -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Arca de Casais 2026 — IBAC | Noite de Gala">
-  <meta property="og:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2026.">
+  <meta property="og:title" content="Arca de Casais 2027 — IBAC | Noite de Gala">
+  <meta property="og:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2027.">
   <meta property="og:image" content="./preview.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="640">
   <meta property="og:image:height" content="640">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Arca de Casais 2026 — IBAC | Noite de Gala">
-  <meta name="twitter:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2026.">
+  <meta name="twitter:title" content="Arca de Casais 2027 — IBAC | Noite de Gala">
+  <meta name="twitter:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2027.">
   <meta name="twitter:image" content="./preview.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,42 +28,38 @@
     body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
     
     /* Cabeçalho */
-    .hero-header { background: var(--primary); text-align: center; padding: 40px 20px 30px 20px; border-bottom: 4px solid var(--gold); position: relative; }
-    .hero-ibac { color: var(--gold); font-size: 16px; letter-spacing: 5px; margin: 0; font-weight: 600; text-transform: uppercase; }
-    .hero-gala { display: inline-block; margin: 15px 0 10px 0; padding: 6px 20px; border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 30px; color: var(--gold); font-size: 13px; letter-spacing: 2px; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+    .hero-header { background: var(--primary); text-align: center; padding: 35px 20px 30px 20px; border-bottom: 4px solid var(--gold); position: relative; }
+    
+    /* Emblema / Logotipo Oficial */
+    .hero-logo-box { display: flex; justify-content: center; align-items: center; margin-bottom: 12px; }
+    .hero-logo-img { 
+      width: 135px; 
+      max-width: 70%; 
+      height: auto; 
+      border-radius: 18px; 
+      border: 2px solid rgba(212, 175, 55, 0.7); 
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.25); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease; 
+      object-fit: contain;
+    }
+    .hero-logo-img:hover { 
+      transform: scale(1.04); 
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55), 0 0 28px rgba(212, 175, 55, 0.4); 
+    }
+
+    .hero-ibac { color: var(--gold); font-size: 15px; letter-spacing: 5px; margin: 0; font-weight: 600; text-transform: uppercase; }
+    .hero-gala { display: inline-block; margin: 12px 0 10px 0; padding: 6px 20px; border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 30px; color: var(--gold); font-size: 13px; letter-spacing: 2px; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
     .hero-title { color: var(--white); font-family: 'Playfair Display', serif; font-size: 34px; margin: 0; letter-spacing: 1px; }
     .hero-title i { color: var(--gold); font-style: italic; }
-
-    /* Imagem Oficial do Evento */
-    .hero-banner-container {
-      margin: 22px auto 16px auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero-banner-img {
-      width: 100%;
-      max-width: 270px;
-      height: auto;
-      border-radius: 16px;
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.25);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: block;
-    }
-    .hero-banner-img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55), 0 0 28px rgba(212, 175, 55, 0.4);
-    }
     
     /* Data e Versículo Bíblico Centralizados */
-    .hero-date-display { color: #f1f5f9; font-size: 15px; margin-top: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .hero-date-display { color: #f1f5f9; font-size: 15px; margin-top: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
     .hero-verse-box { max-width: 680px; margin: 15px auto 0 auto; color: #e2e8f0; font-size: 14px; line-height: 1.6; border-top: 1px solid rgba(212, 175, 55, 0.35); padding-top: 14px; text-align: center; }
     .hero-verse-box p { margin: 0 0 6px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #ffffff; }
     .hero-verse-box span { display: block; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
 
     /* Botão Líder */
-    .btn-lider { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+    .btn-lider { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s; z-index: 10; }
     .btn-lider:hover { background: var(--gold); border-color: var(--gold); color: var(--primary); }
 
     /* Contagem Regressiva */
@@ -226,14 +222,15 @@
 
 <div class="hero-header">
   <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
+  
+  <!-- Emblema Oficial com Proporção Equilibrada -->
+  <div class="hero-logo-box">
+    <img src="./preview.png" alt="Arca de Casais 2027" class="hero-logo-img">
+  </div>
+  
   <h4 class="hero-ibac">IBAC</h4>
   <div class="hero-gala">✨ NOITE DE GALA ✨</div>
-  <h1 class="hero-title">ARCA DE CASAIS <i>2026</i></h1>
-  
-  <!-- Banner Visual Oficial do Evento -->
-  <div class="hero-banner-container">
-    <img src="./preview.png" alt="Arca de Casais 2026" class="hero-banner-img">
-  </div>
+  <h1 class="hero-title">ARCA DE CASAIS <i>2027</i></h1>
   
   <!-- Data e Versículo Bíblico Centralizados -->
   <div id="hero-data-evento" class="hero-date-display"></div>
@@ -493,7 +490,7 @@
   </div>
 </div>
 
-<!-- Modal: Primeiro Acesso (Troca Obrigatória de Senha com Olhinho e Botão Cancelar) -->
+<!-- Modal: Primeiro Acesso -->
 <div class="modal" id="modal-primeiro-acesso">
   <div class="modal-content">
     <h3>🔐 Primeiro Acesso</h3>
@@ -512,7 +509,7 @@
     <div class="password-wrapper">
       <input type="password" id="primeiro-acesso-confirma-senha" placeholder="Confirme sua Nova Senha">
       <button type="button" class="btn-eye" onclick="toggleMostrarSenha('primeiro-acesso-confirma-senha', this)" title="Ver/Ocultar Senha">
-        <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
       </button>
     </div>
 
@@ -521,7 +518,7 @@
   </div>
 </div>
 
-<!-- Modal: Redefinição de Senha Exclusiva do Analista com Olhinho e Cancelar -->
+<!-- Modal: Redefinição de Senha -->
 <div class="modal" id="modal-redefinir-senha">
   <div class="modal-content">
     <h3>🔑 Redefinir Senha</h3>
@@ -756,7 +753,7 @@
   </div>
 </div>
 
-<!-- Modal: Editar Credencial de Usuário com Olhinho e Cancelar -->
+<!-- Modal: Editar Credencial de Usuário -->
 <div class="modal" id="modal-editar-credencial">
   <div class="modal-content">
     <h3>⚙️ Editar Usuário</h3>
@@ -794,7 +791,7 @@
   let tipoGraficoFinancas = 'doughnut';
 
   let configuracoes = {
-    mensagemPadrao: "Olá! Shalom!\n\nPassando para lembrar da nossa \n✨ Noite de Gala - Arca de Casais 2026 ✨\n\nNão se esqueça de confirmar a sua presença.\n\nContamos com vocês!",
+    mensagemPadrao: "Olá! Shalom!\n\nPassando para lembrar da nossa \n✨ Noite de Gala - Arca de Casais 2027 ✨\n\nNão se esqueça de confirmar a sua presença.\n\nContamos com vocês!",
     valorCota: 150.00,
     dataEvento: "",
     chavePix: "",
@@ -805,10 +802,10 @@
   };
 
   let lideres = [
-    { nome: "Joabe", cargo: "Analista", senha: "joabe2026", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
-    { nome: "Bispo Jader Santos", cargo: "Líder Alfa", senha: "jader2026", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
-    { nome: "Pastora Fernanda", cargo: "Líder Alfa", senha: "fernanda2026", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
-    { nome: "Liderança Geral", cargo: "Líder Operacional", senha: "arca2026", alfa: false, fixo: false, bloqueado: false, primeiroAcesso: true }
+    { nome: "Joabe", cargo: "Analista", senha: "joabe2027", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
+    { nome: "Bispo Jader Santos", cargo: "Líder Alfa", senha: "jader2027", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
+    { nome: "Pastora Fernanda", cargo: "Líder Alfa", senha: "fernanda2027", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true },
+    { nome: "Liderança Geral", cargo: "Líder Operacional", senha: "arca2027", alfa: false, fixo: false, bloqueado: false, primeiroAcesso: true }
   ];
   let casais = [];
   let casaisFiltrados = []; 
@@ -942,7 +939,7 @@
           });
 
           if (!lideresNuvem.find(l => l.nome === "Joabe")) {
-            lideresNuvem.unshift({ nome: "Joabe", cargo: "Analista", senha: "joabe2026", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true });
+            lideresNuvem.unshift({ nome: "Joabe", cargo: "Analista", senha: "joabe2027", alfa: true, fixo: true, bloqueado: false, primeiroAcesso: true });
           }
           lideres = lideresNuvem;
         }
@@ -1914,11 +1911,11 @@
   window.exportarCSVModulo = function(tipo) {
     let separador = ";";
     let linhas = [];
-    let nomeArquivo = "Arca2026_Relatorio.csv";
+    let nomeArquivo = "Arca2027_Relatorio.csv";
     let csvContent = "\uFEFFsep=;\r\n";
 
     if (tipo === 'presenca') {
-      nomeArquivo = "Relatorio_Participantes_Arca2026.csv";
+      nomeArquivo = "Relatorio_Participantes_Arca2027.csv";
       linhas.push(["ID", "Casal", "Status Presenca", "Telefone 1", "Telefone 2"]);
       casaisFiltrados.forEach(c => {
         linhas.push([
@@ -1930,7 +1927,7 @@
         ]);
       });
     } else if (tipo === 'financeiro') {
-      nomeArquivo = "Relatorio_Arrecadacao_Arca2026.csv";
+      nomeArquivo = "Relatorio_Arrecadacao_Arca2027.csv";
       linhas.push(["ID", "Casal", "Status Pagamento", "Valor Cota (R$)", "Forma Pagamento", "Previsao Pagamento", "Comprovante Anexado"]);
       casaisFiltrados.forEach(c => {
         linhas.push([
@@ -1961,7 +1958,7 @@
     let titulo = "Relatório Oficial de Gestão";
     let colunas = [];
     let dadosLinhas = [];
-    let nomeArquivo = "Relatorio_Arca2026.pdf";
+    let nomeArquivo = "Relatorio_Arca2027.pdf";
 
     const totalCasais = casaisFiltrados.length;
     const confirmados = casaisFiltrados.filter(c => c.confirmado).length;
@@ -1970,7 +1967,7 @@
 
     if (tipo === 'presenca') {
       titulo = "Relatório de Participantes (Presença)";
-      nomeArquivo = "Relatorio_Participantes_Arca2026.pdf";
+      nomeArquivo = "Relatorio_Participantes_Arca2027.pdf";
       colunas = ["Nº", "Casal", "Presença", "WhatsApp 1", "WhatsApp 2"];
       dadosLinhas = casaisFiltrados.map(c => [
         c.id,
@@ -1981,7 +1978,7 @@
       ]);
     } else if (tipo === 'financeiro') {
       titulo = "Relatório de Arrecadação & Tesouraria";
-      nomeArquivo = "Relatorio_Arrecadacao_Arca2026.pdf";
+      nomeArquivo = "Relatorio_Arrecadacao_Arca2027.pdf";
       colunas = ["Nº", "Casal", "Status", "Forma Pagamento", "Previsão", "Comprovante"];
       dadosLinhas = casaisFiltrados.map(c => [
         c.id,
@@ -2001,7 +1998,7 @@
     let tabelaHtml = `
       <div style="border-bottom: 2px solid #d4af37; padding-bottom: 12px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <h2 style="margin:0; font-family:'Playfair Display', serif; color:#0f172a;">ARCA DE CASAIS 2026</h2>
+          <h2 style="margin:0; font-family:'Playfair Display', serif; color:#0f172a;">ARCA DE CASAIS 2027</h2>
           <small style="color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Igreja Batista Apostólica da Celebração (IBAC)</small>
         </div>
         <div style="text-align:right;">
@@ -2032,7 +2029,7 @@
         </tbody>
       </table>
       <div style="margin-top:20px; font-size:10px; color:#94a3b8; text-align:center;">
-        Documento oficial emitido pela plataforma Arca de Casais 2026 — IBAC.
+        Documento oficial emitido pela plataforma Arca de Casais 2027 — IBAC.
       </div>
     `;
 
