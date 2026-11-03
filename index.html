@@ -27,40 +27,45 @@
     :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; --white: #ffffff; --green: #16a34a; --red: #dc2626; --gray: #64748b; --blue: #2563eb; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
     
-    /* Cabeçalho 100% Responsivo: Nunca corta o banner nas laterais */
+    /* Cabeçalho Desktop (Computador): Panorâmico, 100% de ponta a ponta sem cortes */
     .hero-header {
       background-color: #0f172a;
       background-image: 
         linear-gradient(to bottom, 
           rgba(15, 23, 42, 0) 0%, 
-          rgba(15, 23, 42, 0) 60%, 
-          rgba(15, 23, 42, 0.75) 85%, 
+          rgba(15, 23, 42, 0.15) 50%, 
+          rgba(15, 23, 42, 0.8) 85%, 
           #0f172a 100%),
         url('./banner.png');
       background-position: center top;
-      background-size: min(100vw, 1600px) auto;
+      background-size: cover;
       background-repeat: no-repeat;
       text-align: center;
       position: relative;
       width: 100%;
-      box-sizing: border-box;
+      min-height: clamp(520px, 38vw, 680px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 25px;
+      padding-left: 20px;
+      padding-right: 20px;
       border-bottom: 4px solid var(--gold);
-      /* O padding superior calcula exatamente a altura da arte em qualquer ecrã */
-      padding-top: calc(min(100vw, 1600px) * 0.425 + 15px);
-      padding-bottom: 28px;
-      padding-left: 15px;
-      padding-right: 15px;
+      box-sizing: border-box;
     }
 
-    /* Ajustes Específicos para Telemóveis */
+    /* Cabeçalho Mobile (Telemóvel): Mantém 100% da arte sem cortar laterais e sem sobreposições */
     @media (max-width: 768px) {
       .hero-header {
         background-size: 100% auto !important;
         background-position: center top !important;
+        min-height: auto !important;
+        justify-content: flex-start !important;
         padding-top: calc(100vw * 0.425 + 12px) !important;
-        padding-bottom: 20px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-bottom: 20px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
       }
       .btn-lider {
         top: 10px !important;
@@ -72,14 +77,16 @@
         font-size: 11px !important; 
         padding: 5px 14px !important; 
         letter-spacing: 1px !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 6px !important;
       }
       .hero-verse-box {
-        padding-top: 8px !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
       }
       .hero-verse-box p { 
         font-size: 12px !important; 
         line-height: 1.4 !important;
+        margin-bottom: 4px !important;
       }
       .hero-verse-box span { 
         font-size: 10px !important; 
@@ -107,18 +114,20 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(212, 175, 55, 0.45);
-      padding: 7px 22px;
+      padding: 6px 20px;
       border-radius: 25px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    /* Versículo Bíblico */
+    /* Versículo Bíblico: Sem traço divisório para não cortar a arte */
     .hero-verse-box { 
-      margin: 0 auto; 
+      margin: 8px auto 0 auto; 
       color: #e2e8f0; 
       font-size: 14px; 
       line-height: 1.6; 
+      border-top: none;
+      padding-top: 0; 
       text-align: center; 
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
     }
@@ -324,7 +333,7 @@
   <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
   <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Arca de Casais 2027 — IBAC Noite de Gala</h1>
 
-  <!-- Conteúdo Posicionado Abaixo de "NOITE DE GALA" -->
+  <!-- Conteúdo de Apoio Perfeitamente Posicionado na Base -->
   <div class="hero-footer-content">
     <div id="hero-data-evento" class="hero-date-display"></div>
     <div class="hero-verse-box">
@@ -1926,305 +1935,3 @@
 
     if (l.nome === "Joabe" && novoCargo !== "Analista") {
       return alert("O perfil principal de Analista (Joabe) não pode ter o cargo alterado.");
-    }
-
-    if (!confirm(`Deseja alterar a função de ${l.nome} para ${novoCargo}?`)) return;
-
-    l.cargo = novoCargo;
-    l.alfa = (novoCargo === "Analista" || novoCargo === "Líder Alfa");
-    
-    await salvarNoBanco();
-    renderizarTabelaLideres();
-
-    if (l.nome === liderAtual) {
-      isAnalista = (l.cargo === "Analista" || l.nome === "Joabe");
-      isAlfa = l.alfa;
-      document.getElementById("sec-alfa").style.display = (isAlfa || isAnalista) ? "block" : "none";
-      const badgeCargo = document.getElementById("badge-cargo-painel");
-      if (isAnalista) {
-        badgeCargo.innerText = "ANALISTA";
-        badgeCargo.style.background = "#e0e7ff";
-        badgeCargo.style.color = "#3730a3";
-        document.querySelector('.btn-lider').innerHTML = "Sair (Analista)";
-      } else {
-        badgeCargo.innerText = isAlfa ? "LÍDER ALFA" : "LÍDER";
-        badgeCargo.style.background = "var(--gold)";
-        badgeCargo.style.color = "#fff";
-        document.querySelector('.btn-lider').innerHTML = "Sair (" + liderAtual.split(' ')[0] + ")";
-      }
-    }
-
-    alert(`Sucesso! A função de ${l.nome} foi atualizada para ${novoCargo}.`);
-  };
-
-  window.cadastrarLider = async function() {
-    const n = document.getElementById("novo-lider-nome").value.trim();
-    const s = document.getElementById("novo-lider-senha").value.trim();
-    const cargo = document.getElementById("novo-lider-cargo").value;
-    const a = (cargo === "Líder Alfa" || cargo === "Analista");
-
-    if (!n || !s) return alert("Preencha o nome e a senha!");
-    if (lideres.find(l => l.nome.toLowerCase() === n.toLowerCase())) return alert("Usuário já cadastrado!");
-
-    lideres.push({ nome: n, cargo: cargo, senha: s, alfa: a, fixo: false, bloqueado: false, primeiroAcesso: true });
-    await salvarNoBanco();
-    renderizarTabelaLideres();
-    document.getElementById("novo-lider-nome").value = "";
-    document.getElementById("novo-lider-senha").value = "";
-    alert("Usuário registrado com sucesso!");
-  };
-
-  window.removerLider = async function(n) {
-    if (!confirm(`Remover usuário ${n}?`)) return;
-    lideres = lideres.filter(l => l.nome !== n || l.fixo);
-    await salvarNoBanco();
-    renderizarTabelaLideres();
-  };
-
-  window.abrirEdicaoLiderCredencial = function(n) {
-    const l = lideres.find(x => x.nome === n);
-    if (!l) return;
-    document.getElementById("edit-lider-original").value = l.nome;
-    document.getElementById("edit-lider-nome").value = l.nome;
-    document.getElementById("edit-lider-senha").value = l.senha;
-    document.getElementById("edit-lider-senha").type = "password";
-    document.getElementById("modal-editar-credencial").classList.add("active");
-  };
-
-  window.salvarEdicaoCredencial = async function() {
-    const orig = document.getElementById("edit-lider-original").value;
-    const n = document.getElementById("edit-lider-nome").value.trim();
-    const s = document.getElementById("edit-lider-senha").value.trim();
-    const l = lideres.find(x => x.nome === orig);
-    if (l && n && s) {
-      l.nome = n;
-      l.senha = s;
-      await salvarNoBanco();
-    }
-    fecharModal('modal-editar-credencial');
-    renderizarTabelaLideres();
-  };
-
-  // ==========================================
-  // EXPORTAÇÃO CSV PADRÃO BRASIL EXCEL
-  // ==========================================
-  window.exportarCSVModulo = function(tipo) {
-    let separador = ";";
-    let linhas = [];
-    let nomeArquivo = "Arca2027_Relatorio.csv";
-    let csvContent = "\uFEFFsep=;\r\n";
-
-    if (tipo === 'presenca') {
-      nomeArquivo = "Relatorio_Participantes_Arca2027.csv";
-      linhas.push(["ID", "Casal", "Status Presenca", "Telefone 1", "Telefone 2"]);
-      casaisFiltrados.forEach(c => {
-        linhas.push([
-          c.id,
-          `"${c.nome.replace(/"/g, '""')}"`,
-          c.confirmado ? "Confirmado" : "Pendente",
-          `"${c.tel1 ? formatarTelefoneVisual(c.tel1) : ''}"`,
-          `"${c.tel2 ? formatarTelefoneVisual(c.tel2) : ''}"`
-        ]);
-      });
-    } else if (tipo === 'financeiro') {
-      nomeArquivo = "Relatorio_Arrecadacao_Arca2027.csv";
-      linhas.push(["ID", "Casal", "Status Pagamento", "Valor Cota (R$)", "Forma Pagamento", "Previsao Pagamento", "Comprovante Anexado"]);
-      casaisFiltrados.forEach(c => {
-        linhas.push([
-          c.id,
-          `"${c.nome.replace(/"/g, '""')}"`,
-          c.pago ? "Pago" : "Pendente",
-          c.pago ? configuracoes.valorCota.toFixed(2).replace('.', ',') : "0,00",
-          `"${c.formaPagamento === 'indefinido' ? 'Ainda nao sabe' : (c.formaPagamento || 'Ainda nao sabe')}"`,
-          `"${formatarDataBR(c.previsaoPagamento) || 'Nao informada'}"`,
-          c.comprovante ? "Sim" : "Nao"
-        ]);
-      });
-    }
-
-    csvContent += linhas.map(e => e.join(separador)).join("\r\n");
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = nomeArquivo;
-    link.click();
-  };
-
-  // ==========================================
-  // EXPORTAÇÃO PDF EXECUTIVA FORMATADA
-  // ==========================================
-  window.exportarRelatorioPDF = function(tipo) {
-    let titulo = "Relatório Oficial de Gestão";
-    let colunas = [];
-    let dadosLinhas = [];
-    let nomeArquivo = "Relatorio_Arca2027.pdf";
-
-    const totalCasais = casaisFiltrados.length;
-    const confirmados = casaisFiltrados.filter(c => c.confirmado).length;
-    const pagos = casaisFiltrados.filter(c => c.pago).length;
-    const arrecadado = pagos * configuracoes.valorCota;
-
-    if (tipo === 'presenca') {
-      titulo = "Relatório de Participantes (Presença)";
-      nomeArquivo = "Relatorio_Participantes_Arca2027.pdf";
-      colunas = ["Nº", "Casal", "Presença", "WhatsApp 1", "WhatsApp 2"];
-      dadosLinhas = casaisFiltrados.map(c => [
-        c.id,
-        c.nome,
-        c.confirmado ? '<span style="color:#16a34a; font-weight:bold;">Confirmado</span>' : '<span style="color:#64748b;">Pendente</span>',
-        c.tel1 ? formatarTelefoneVisual(c.tel1) : '-',
-        c.tel2 ? formatarTelefoneVisual(c.tel2) : '-'
-      ]);
-    } else if (tipo === 'financeiro') {
-      titulo = "Relatório de Arrecadação & Tesouraria";
-      nomeArquivo = "Relatorio_Arrecadacao_Arca2027.pdf";
-      colunas = ["Nº", "Casal", "Status", "Forma Pagamento", "Previsão", "Comprovante"];
-      dadosLinhas = casaisFiltrados.map(c => [
-        c.id,
-        c.nome,
-        c.pago ? '<span style="color:#16a34a; font-weight:bold;">Pago (R$ ' + configuracoes.valorCota.toFixed(2) + ')</span>' : '<span style="color:#dc2626; font-weight:bold;">Pendente</span>',
-        c.formaPagamento === 'indefinido' ? 'Ainda não sabe' : (c.formaPagamento || 'Ainda não sabe').toUpperCase(),
-        formatarDataBR(c.previsaoPagamento) || 'Não informada',
-        c.comprovante ? 'Anexado (OK)' : 'Sem recibo'
-      ]);
-    }
-
-    const containerPDF = document.createElement("div");
-    containerPDF.style.padding = "20px";
-    containerPDF.style.fontFamily = "'Inter', Arial, sans-serif";
-    containerPDF.style.color = "#0f172a";
-
-    let tabelaHtml = `
-      <div style="border-bottom: 2px solid #d4af37; padding-bottom: 12px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <h2 style="margin:0; font-family:'Playfair Display', serif; color:#0f172a;">ARCA DE CASAIS 2027</h2>
-          <small style="color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Igreja Batista Apostólica da Celebração (IBAC)</small>
-        </div>
-        <div style="text-align:right;">
-          <h4 style="margin:0; color:#d4af37;">${titulo}</h4>
-          <small style="color:#64748b;">Emissão: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</small>
-        </div>
-      </div>
-
-      <div style="display:flex; gap:10px; margin-bottom:20px; background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0; font-size:12px;">
-        <div style="flex:1;"><strong>Total Listado:</strong> ${totalCasais}</div>
-        <div style="flex:1;"><strong>Confirmados:</strong> ${confirmados}</div>
-        <div style="flex:1;"><strong>Pagantes:</strong> ${pagos}</div>
-        <div style="flex:1; color:#16a34a;"><strong>Total Arrecadado:</strong> R$ ${arrecadado.toLocaleString('pt-BR', {minimumFractionDigits:2})}</div>
-      </div>
-
-      <table style="width:100%; border-collapse:collapse; font-size:11px;">
-        <thead>
-          <tr style="background:#0f172a; color:#ffffff;">
-            ${colunas.map(col => `<th style="padding:8px 6px; text-align:left; border:1px solid #0f172a;">${col}</th>`).join('')}
-          </tr>
-        </thead>
-        <tbody>
-          ${dadosLinhas.map((linha, idx) => `
-            <tr style="background:${idx % 2 === 0 ? '#ffffff' : '#f8fafc'};">
-              ${linha.map(val => `<td style="padding:6px; border:1px solid #e2e8f0;">${val}</td>`).join('')}
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-      <div style="margin-top:20px; font-size:10px; color:#94a3b8; text-align:center;">
-        Documento oficial emitido pela plataforma Arca de Casais 2027 — IBAC.
-      </div>
-    `;
-
-    containerPDF.innerHTML = tabelaHtml;
-    document.body.appendChild(containerPDF);
-
-    const opt = {
-      margin: 8,
-      filename: nomeArquivo,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(containerPDF).save().then(() => {
-      document.body.removeChild(containerPDF);
-    });
-  };
-
-  window.processarImportacaoCSV = function(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-      const text = e.target.result;
-      const lines = text.split('\n');
-      let adicionados = 0;
-      
-      lines.forEach((line, index) => {
-        if (index === 0 && (line.toLowerCase().includes('casal') || line.toLowerCase().includes('sep='))) return;
-        
-        const sep = line.includes(';') ? ';' : ',';
-        const cols = line.split(sep);
-        if (cols.length > 0 && cols[0].trim() !== '') {
-          let nomeRaw = cols.length > 1 && !isNaN(cols[0].trim()) ? cols[1] : cols[0];
-          let nome = nomeRaw.replace(/['"]/g, '').trim().toUpperCase();
-          if (nome && !casais.find(c => c.nome === nome)) {
-            const novoId = casais.length ? Math.max(...casais.map(c => c.id)) + 1 : 1;
-            let tel1 = cols.length > 3 ? cols[3].replace(/['"\D]/g, '') : "";
-            let tel2 = cols.length > 4 ? cols[4].replace(/['"\D]/g, '') : "";
-            casais.push({
-              id: novoId,
-              nome: nome,
-              confirmado: false,
-              pago: false,
-              tel1: tel1,
-              tel2: tel2,
-              formaPagamento: "indefinido",
-              previsaoPagamento: "",
-              comprovante: "",
-              codigoAcesso: gerarCodigoAcessoUnico()
-            });
-            adicionados++;
-          }
-        }
-      });
-      await salvarNoBanco();
-      renderizarLista();
-      alert(`Sucesso! ${adicionados} casais importados e sincronizados.`);
-      event.target.value = '';
-    };
-    reader.readAsText(file);
-  };
-
-  window.toggleSection = function(id) {
-    document.getElementById(id).classList.toggle('open');
-  };
-
-  function iniciarContagem() {
-    if (timerInterval) clearInterval(timerInterval);
-    const alvo = new Date(configuracoes.dataEvento).getTime();
-    if (!configuracoes.dataEvento || isNaN(alvo)) {
-      document.getElementById("cd-dias").innerText = "--";
-      document.getElementById("cd-horas").innerText = "--";
-      document.getElementById("cd-min").innerText = "--";
-      return;
-    }
-    timerInterval = setInterval(() => {
-      const dist = alvo - new Date().getTime();
-      if (dist < 0) {
-        clearInterval(timerInterval);
-        document.getElementById("countdown-timer").innerHTML = "<div style='color:var(--gold); font-size:20px; font-weight:bold;'>O Grande Dia Chegou! ✨</div>";
-        return;
-      }
-      document.getElementById("cd-dias").innerText = Math.floor(dist / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-      document.getElementById("cd-horas").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-      document.getElementById("cd-min").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-    }, 1000);
-  }
-
-  window.fecharModal = function(id) {
-    document.getElementById(id).classList.remove("active");
-  };
-
-  window.onload = inicializarDados;
-</script>
-</body>
-</html>
