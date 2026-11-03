@@ -9,14 +9,14 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Arca de Casais 2027 — IBAC | Noite de Gala">
   <meta property="og:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2027.">
-  <meta property="og:image" content="./preview.png">
+  <meta property="og:image" content="./banner.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="640">
-  <meta property="og:image:height" content="640">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Arca de Casais 2027 — IBAC | Noite de Gala">
   <meta name="twitter:description" content="Plataforma oficial de confirmação de presença e gestão da Noite de Gala Arca de Casais 2027.">
-  <meta name="twitter:image" content="./preview.png">
+  <meta name="twitter:image" content="./banner.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -27,39 +27,75 @@
     :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; --white: #ffffff; --green: #16a34a; --red: #dc2626; --gray: #64748b; --blue: #2563eb; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
     
-    /* Cabeçalho */
-    .hero-header { background: var(--primary); text-align: center; padding: 35px 20px 30px 20px; border-bottom: 4px solid var(--gold); position: relative; }
-    
-    /* Emblema / Logotipo Oficial */
-    .hero-logo-box { display: flex; justify-content: center; align-items: center; margin-bottom: 12px; }
-    .hero-logo-img { 
-      width: 135px; 
-      max-width: 70%; 
-      height: auto; 
-      border-radius: 18px; 
-      border: 2px solid rgba(212, 175, 55, 0.7); 
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.25); 
-      transition: transform 0.3s ease, box-shadow 0.3s ease; 
-      object-fit: contain;
-    }
-    .hero-logo-img:hover { 
-      transform: scale(1.04); 
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55), 0 0 28px rgba(212, 175, 55, 0.4); 
+    /* Cabeçalho Cobrindo 100% da Extensão com o Novo Banner */
+    .hero-header {
+      background: #0f172a linear-gradient(to bottom, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.45) 55%, rgba(15, 23, 42, 0.92) 100%),
+                  url('./banner.png') center top / cover no-repeat;
+      text-align: center;
+      padding: 35px 20px 30px 20px;
+      border-bottom: 4px solid var(--gold);
+      position: relative;
+      width: 100%;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      box-sizing: border-box;
     }
 
-    .hero-ibac { color: var(--gold); font-size: 15px; letter-spacing: 5px; margin: 0; font-weight: 600; text-transform: uppercase; }
-    .hero-gala { display: inline-block; margin: 12px 0 10px 0; padding: 6px 20px; border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 30px; color: var(--gold); font-size: 13px; letter-spacing: 2px; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
-    .hero-title { color: var(--white); font-family: 'Playfair Display', serif; font-size: 34px; margin: 0; letter-spacing: 1px; }
-    .hero-title i { color: var(--gold); font-style: italic; }
+    @media (max-width: 768px) {
+      .hero-header {
+        min-height: 340px;
+        background-position: center center;
+        padding: 25px 15px 25px 15px;
+      }
+    }
     
-    /* Data e Versículo Bíblico Centralizados */
-    .hero-date-display { color: #f1f5f9; font-size: 15px; margin-top: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-    .hero-verse-box { max-width: 680px; margin: 15px auto 0 auto; color: #e2e8f0; font-size: 14px; line-height: 1.6; border-top: 1px solid rgba(212, 175, 55, 0.35); padding-top: 14px; text-align: center; }
+    /* Data e Versículo Bíblico Centralizados com Sombra Legível */
+    .hero-date-display { 
+      color: #f1f5f9; 
+      font-size: 15px; 
+      margin-top: 15px; 
+      font-weight: 600; 
+      letter-spacing: 1.5px; 
+      text-transform: uppercase; 
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+    }
+    .hero-verse-box { 
+      max-width: 680px; 
+      margin: 14px auto 0 auto; 
+      color: #e2e8f0; 
+      font-size: 14px; 
+      line-height: 1.6; 
+      border-top: 1px solid rgba(212, 175, 55, 0.4); 
+      padding-top: 14px; 
+      text-align: center; 
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+    }
     .hero-verse-box p { margin: 0 0 6px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #ffffff; }
     .hero-verse-box span { display: block; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
 
-    /* Botão Líder */
-    .btn-lider { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s; z-index: 10; }
+    /* Botão Líder em Vidro Acetinado (Glassmorphism) */
+    .btn-lider { 
+      position: absolute; 
+      top: 15px; 
+      right: 15px; 
+      background: rgba(15, 23, 42, 0.65); 
+      backdrop-filter: blur(8px); 
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff; 
+      border: 1px solid rgba(212, 175, 55, 0.45); 
+      padding: 8px 15px; 
+      border-radius: 20px; 
+      font-size: 13px; 
+      cursor: pointer; 
+      display: flex; 
+      align-items: center; 
+      gap: 5px; 
+      transition: 0.3s; 
+      z-index: 10; 
+    }
     .btn-lider:hover { background: var(--gold); border-color: var(--gold); color: var(--primary); }
 
     /* Contagem Regressiva */
@@ -220,18 +256,12 @@
 </head>
 <body>
 
+<!-- Cabeçalho Panorâmico Oficial Arca de Casais 2027 -->
 <div class="hero-header">
   <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
   
-  <!-- Emblema Oficial com Proporção Equilibrada -->
-  <div class="hero-logo-box">
-    <img src="./preview.png" alt="Arca de Casais 2027" class="hero-logo-img">
-  </div>
-  
-  <h4 class="hero-ibac">IBAC</h4>
-  <div class="hero-gala">✨ NOITE DE GALA ✨</div>
-  <h1 class="hero-title">ARCA DE CASAIS <i>2027</i></h1>
-  
+  <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Arca de Casais 2027 — IBAC Noite de Gala</h1>
+
   <!-- Data e Versículo Bíblico Centralizados -->
   <div id="hero-data-evento" class="hero-date-display"></div>
   <div class="hero-verse-box">
@@ -303,8 +333,8 @@
         </div>
         <div class="canvas-wrapper"><canvas id="graficoPresenca"></canvas></div>
         <div class="chart-export-row">
-          <button class="btn-chart-export btn-red" onclick="exportarRelatorioPDF('presenca')">📄 Relatorio de Participantes - PDF</button>
-          <button class="btn-chart-export btn-green" onclick="exportarCSVModulo('presenca')">📊 Relatorio de Participantes - EXCEL</button>
+          <button class="btn-chart-export btn-red" onclick="exportarRelatorioPDF('presenca')">📄 Relatório de Participantes - PDF</button>
+          <button class="btn-chart-export btn-green" onclick="exportarCSVModulo('presenca')">📊 Relatório de Participantes - EXCEL</button>
         </div>
       </div>
 
@@ -320,8 +350,8 @@
         </div>
         <div class="canvas-wrapper"><canvas id="graficoFinanceiro"></canvas></div>
         <div class="chart-export-row">
-          <button class="btn-chart-export btn-red" onclick="exportarRelatorioPDF('financeiro')">📄 Relatorio Arrecadação - PDF</button>
-          <button class="btn-chart-export btn-green" onclick="exportarCSVModulo('financeiro')">📊 Relatorio Arrecadação - EXCEL</button>
+          <button class="btn-chart-export btn-red" onclick="exportarRelatorioPDF('financeiro')">📄 Relatório Arrecadação - PDF</button>
+          <button class="btn-chart-export btn-green" onclick="exportarCSVModulo('financeiro')">📊 Relatório Arrecadação - EXCEL</button>
         </div>
       </div>
     </div>
