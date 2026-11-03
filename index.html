@@ -27,54 +27,54 @@
     :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; --white: #ffffff; --green: #16a34a; --red: #dc2626; --gray: #64748b; --blue: #2563eb; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
     
-    /* Cabeçalho Oficial Centralizado com Encaixe Perfeito */
+    /* Estrutura Geral do Cabeçalho */
     .hero-header {
+      background-color: var(--primary);
+      border-bottom: 4px solid var(--gold);
+      width: 100%;
+      position: relative;
+    }
+
+    /* Área Panorâmica do Banner (Arte 100% Livre e Desimpedida) */
+    .hero-banner {
       background-color: #0f172a;
-      background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.25) 50%, rgba(15, 23, 42, 0.9) 100%), url('./banner.png');
+      background-image: url('./banner.png');
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
-      text-align: center;
-      padding: 40px 20px 25px 20px;
-      border-bottom: 4px solid var(--gold);
-      position: relative;
       width: 100%;
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      box-sizing: border-box;
+      height: clamp(280px, 38vw, 540px);
+      position: relative;
     }
 
-    @media (max-width: 768px) {
-      .hero-header {
-        min-height: 380px;
-        background-position: center center;
-        padding: 30px 15px 20px 15px;
-      }
+    /* Faixa Inferior Dedicada: Data e Versículo Bíblico */
+    .hero-info-bar {
+      background-color: #0f172a;
+      text-align: center;
+      padding: 16px 20px 24px 20px;
+      position: relative;
     }
-    
-    /* Data e Versículo Bíblico com Leitura Nítida na Base */
+
     .hero-date-display { 
       color: #f1f5f9; 
       font-size: 15px; 
-      margin-top: 15px; 
+      margin-top: 0;
+      margin-bottom: 12px;
       font-weight: 600; 
       letter-spacing: 1.5px; 
       text-transform: uppercase; 
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
     .hero-verse-box { 
       max-width: 680px; 
-      margin: 12px auto 0 auto; 
+      margin: 0 auto; 
       color: #e2e8f0; 
       font-size: 14px; 
       line-height: 1.6; 
-      border-top: 1px solid rgba(212, 175, 55, 0.45); 
+      border-top: 1px solid rgba(212, 175, 55, 0.4); 
       padding-top: 12px; 
       text-align: center; 
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
     .hero-verse-box p { margin: 0 0 6px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #ffffff; }
     .hero-verse-box span { display: block; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
@@ -261,15 +261,19 @@
 
 <!-- Cabeçalho Panorâmico Oficial Arca de Casais 2027 -->
 <div class="hero-header">
-  <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
-  
-  <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Arca de Casais 2027 — IBAC Noite de Gala</h1>
+  <!-- Imagem Panorâmica Limpa (Sem textos ou linhas em cima) -->
+  <div class="hero-banner">
+    <button class="btn-lider" onclick="abrirLogin()">🔒 Líder</button>
+    <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Arca de Casais 2027 — IBAC Noite de Gala</h1>
+  </div>
 
-  <!-- Data e Versículo Bíblico Centralizados -->
-  <div id="hero-data-evento" class="hero-date-display"></div>
-  <div class="hero-verse-box">
-    <p id="hero-verse-txt">"Assim, eles já não são dois, mas sim uma só carne. Portanto, ninguém separe o que Deus uniu."</p>
-    <span id="hero-verse-ref">Mateus 19:6</span>
+  <!-- Faixa Inferior de Informações: Data e Versículo Bíblico -->
+  <div class="hero-info-bar">
+    <div id="hero-data-evento" class="hero-date-display"></div>
+    <div class="hero-verse-box">
+      <p id="hero-verse-txt">"Assim, eles já não são dois, mas sim uma só carne. Portanto, ninguém separe o que Deus uniu."</p>
+      <span id="hero-verse-ref">Mateus 19:6</span>
+    </div>
   </div>
 </div>
 
@@ -960,7 +964,14 @@
           }
         });
 
-        if (dados.configuracoes) configuracoes = { ...configuracoes, ...dados.configuracoes };
+        if (dados.configuracoes) {
+          configuracoes = { ...configuracoes, ...dados.configuracoes };
+          // Atualiza automaticamente no banco caso a data ainda estivesse gravada em 2026
+          if (configuracoes.dataEvento && configuracoes.dataEvento.includes('2026')) {
+            configuracoes.dataEvento = configuracoes.dataEvento.replace('2026', '2027');
+            precisouAtualizar = true;
+          }
+        }
 
         if (dados.lideres && Array.isArray(dados.lideres)) {
           let lideresNuvem = dados.lideres;
